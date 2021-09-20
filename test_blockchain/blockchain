@@ -1,0 +1,87 @@
+#!/bin/python3
+# -*- coding: utf-8 -*-
+
+from hashlib import sha512
+
+
+def updatehash(*args):
+    hash_str_of_block = "" #empty string
+    hash_main = sha512()
+
+    for arg in args:
+        hash_str_of_block += str(arg)
+
+    hash_main.update(hash_str_of_block.encode('utf-8'))
+
+    return hash_main.hexdigest()
+
+
+class Block():
+    nonce = 0
+    data = None
+    hash = None
+    previous_hash = "be688838ca8686e5c90689bf2ab585cef1137c999b48c70b92f67a5c34dc15697b5d11c982ed6d71be1e1e7f7b4e0733884aa97c3f7a339a8ed03577cf74be09" #hash_of_empty_str
+
+    def __init__(self, data, number=0):
+        self.data = data
+        self.number = number
+
+    def hash(self):
+        return updatehash(self.previous_hash, self.data, self.nonce, self.number)
+
+    def __str__(self):
+        self.line_1 = "<================================================================================================================================================================>"
+        self.line_2 = "|---------------------------------------------------------------------------------------------------------------------------------------------------------------->"
+        self.space =  "                                                                            "
+        return str("\n%s\n|%sBLOCK: %s%s\n%s\n|   Nonce: %s\n%s\n|\n|   Data: %s\n|\n%s\n|\n|   Previous_Hash:===>  [%s]\n|\n%s\n%s\n|\n|   Hash:===>           [%s]\n|\n%s" %(self.line_1, self.space, self.number, self.space, self.line_2, self.nonce, self.line_2, self.data, self.line_2, self.previous_hash,self.line_2, self.line_2,  self.hash(), self.line_1))
+
+
+class Blockchain():
+    difficulty = 5
+
+    def __init__(self,chain=[]):
+        self.chain = chain
+
+    def add_new_block(self, block):
+        self.chain.append(block)
+
+    def mine(self,block):
+        try:
+            block.previous_hash = self.chain[-1].hash()
+        except IndexError:
+            pass
+
+        while True:
+            if block.hash()[:self.difficulty] == "0" * self.difficulty:
+                self.add_new_block(block)
+                break
+            else:
+                block.nonce += 1
+
+
+def main():
+    blockchain = Blockchain()
+
+    #transactions
+    tr1 = "huen -------> VZ\tamount: 30LFC"
+    tr2 = "huen -------> huehuehue\tamount: 10LFC"
+    tr3 = "VZ -------> A\tamount: 300LFC"
+    tr4 = "A -------> B\tamount: 5LFC"
+    tr5 = "B -------> C\tamount: 50LFC"
+    tr6 = "XX -------> VZ\tamount: 1LFC"
+    data = [tr1,tr2,tr3,tr4,tr5,tr6]
+    num = 0
+    for i in data:
+        num += 1
+        blockchain.mine(Block(i,num))
+        print(f"Block#{num} done")
+
+
+    for block in blockchain.chain:
+        print(block)
+
+
+if __name__ == '__main__':
+    main()
+
+
