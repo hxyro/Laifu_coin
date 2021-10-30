@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Laifu_coin - Register</title>
+
+  </head>
+
+  <body>
+        <div><h1 style="text-align: center;">Register an Account</h1></div>
+    <div>
+
+        {% include 'includes/_messages.html' %}
+        {% from "includes/_formhelpers.html" import render_field %}
+        
+        <form method="POST" action="">
+            <div>
+                <input type="text" id="inputUsername" name="name" placeholder="Full Name" required="required" autofocus="autofocus" value={{request.form.name}}>
+                <label for="fullName">Full Name</label>
+            </div>
+            <div>
+                <input type="text" id="inputUsername" name="username" placeholder="Username" required="required" autofocus="autofocus" value={{request.form.username}}>
+                <label for="inputUsername">Username</label>
+            </div>
+            <div>
+                <input type="text" id="inputEmail" name="email" placeholder="Email" required="required" autofocus="autofocus" value={{request.form.email}}>
+                <label for="inputEmail">Email address</label>
+            </div>
+            <div>
+                <input type="password" id="inputPassword" name="password" placeholder="Password" required="required" autofocus="autofocus" value={{request.form.password}}>
+                <label for="inputPassword">Password</label>
+            </div>
+            <div>
+                <input type="password" id="confirmPassword" name="confirm" placeholder="Confirm Password" required="required" autofocus="autofocus" value={{request.form.confirm}}>
+                <label for="confirmPassword">Confirm Password</label>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+          
+        <div><a href="login">Already have an account? Login now.</a></div>
+        <div><a href="/">Home Page</a></div>
+        
+    </div>
+  </body>
+
+</html>
