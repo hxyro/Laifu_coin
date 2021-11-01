@@ -107,7 +107,7 @@ class Blockchain():
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'Ayush@2003'
 app.config['MYSQL_DB'] = 'blockchain'
 app.config['MYSQL_CURSORCLASS'] = ''
 mysql = MySQL(app)
