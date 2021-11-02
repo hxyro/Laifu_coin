@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+{% include 'includes/_messages.html' %}
+<p>Your current balance is {{ balance }} Laifu_coin</p>
+{% from "includes/_formhelpers.html" import render_field %}
+<form action="" method="POST">
+  <div>
+    <div>
+      {{render_field(form.amount, class_="form-control")}}
+    </div>
+  </div>
+  <button type="submit">Buy Now</button>
+</form>
+{% endblock %}
